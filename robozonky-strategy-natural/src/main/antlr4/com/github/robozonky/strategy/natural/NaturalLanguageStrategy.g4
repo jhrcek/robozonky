@@ -55,25 +55,15 @@ complexExpression returns [ParsedStrategy result]
         p=portfolioStructureExpression
         { portfolioStructures = $p.result; }
     )?
-
     (
-        (
-            DELIM 'Výše investice'
-            i1=legacyInvestmentSizeExpression
-            { investmentSizes = $i1.result; }
-        ) | (
-            (
-                DELIM 'Výše investice'
-                i2=investmentSizeExpression
-                { investmentSizes = $i2.result; }
-            )?
-            (
-                DELIM 'Výše nákupu'
-                i3=purchaseSizeExpression
-                { purchaseSizes = $i3.result; }
-            )
-
-        )
+        DELIM 'Výše investice'
+        i2=investmentSizeExpression
+        { investmentSizes = $i2.result; }
+    )?
+    (
+        DELIM 'Výše nákupu'
+        i3=purchaseSizeExpression
+        { purchaseSizes = $i3.result; }
     )?
 
     (
